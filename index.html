@@ -9,86 +9,47 @@
 <meta property="og:description" content="摄影作品 — 还没做好，敬请期待">
 <meta property="og:type" content="website">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📷</text></svg>">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@200;300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 <style>
-:root {
-  --bg: #ffffff;
-  --text: #1a2332;
-  --text-secondary: #5a6a7e;
-  --text-muted: #8a9baa;
-  --accent: #F59E0B;
-  --accent-light: #FBBF24;
-  --border: #e2e8f0;
-  --radius: 16px;
-  --font-sans: 'Instrument Sans', -apple-system, sans-serif;
-  --font-cn: 'Noto Sans SC', -apple-system, 'PingFang SC', sans-serif;
-}
-* { margin: 0; padding: 0; box-sizing: border-box; }
-body {
-  font-family: var(--font-cn);
-  background: var(--bg);
-  color: var(--text);
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  -webkit-font-smoothing: antialiased;
-}
-.container {
-  text-align: center;
-  padding: 2rem;
-}
-.icon {
-  font-size: 4rem;
-  margin-bottom: 1.5rem;
-  display: block;
-}
-h1 {
-  font-family: var(--font-sans);
-  font-size: 2.5rem;
-  font-weight: 600;
-  margin-bottom: 0.75rem;
-  letter-spacing: -0.02em;
-}
-.status {
-  display: inline-block;
-  padding: 0.35rem 1.2rem;
-  border-radius: 50px;
-  font-size: 0.85rem;
-  font-weight: 500;
-  background: rgba(245,158,11,0.08);
-  color: var(--accent);
-  border: 1px solid rgba(245,158,11,0.15);
-  margin-bottom: 1.5rem;
-}
-p {
-  color: var(--text-secondary);
-  font-size: 1.05rem;
-  line-height: 1.8;
-  max-width: 400px;
-  margin: 0 auto 2rem;
-}
-.back-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  color: var(--accent);
-  text-decoration: none;
-  font-weight: 500;
-  font-size: 0.95rem;
-  transition: opacity 0.2s;
-}
-.back-link:hover { opacity: 0.7; }
-.back-link::before {
-  content: '←';
-  font-size: 1.1rem;
-}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--accent:#F59E0B;--bg:#ffffff;--text:#1a2332;--text-secondary:#5a6a7e;--font-sans:'Instrument Sans',sans-serif;--font-cn:'Noto Sans SC',sans-serif}
+body{font-family:var(--font-cn);background:var(--bg);color:var(--text);display:flex;align-items:center;justify-content:center;min-height:100dvh;padding-top:80px}
+.container{text-align:center;padding:2rem}
+.icon{font-size:4rem;margin-bottom:1.5rem;display:block}
+h1{font-family:var(--font-sans);font-size:2.5rem;font-weight:600;margin-bottom:0.75rem;letter-spacing:-0.02em}
+.status{display:inline-block;padding:0.35rem 1.2rem;border-radius:50px;font-size:0.85rem;font-weight:500;background:rgba(16,185,129,0.08);color:var(--accent);border:1px solid rgba(16,185,129,0.15);margin-bottom:1.5rem}
+p{color:var(--text-secondary);font-size:1.05rem;line-height:1.8;max-width:400px;margin:0 auto 2rem}
+.back-link{display:inline-flex;align-items:center;gap:0.4rem;color:var(--accent);text-decoration:none;font-weight:500;font-size:0.95rem;transition:opacity 0.2s}
+.back-link:hover{opacity:0.7}
+.back-link::before{content:'←';font-size:1.1rem}
 </style>
 </head>
 <body>
+
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="https://qijunhao.com" class="nav-logo">QI JUNHAO<span class="dot">.</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="https://qijunhao.com" data-i18n="nav.home">首页</a></li>
+      <li><a href="https://music.qijunhao.com" data-i18n="nav.music">音乐</a></li>
+      <li><a href="https://travel.qijunhao.com" data-i18n="nav.travel">旅行</a></li>
+      <li><a href="https://photography.qijunhao.com" class="active" data-i18n="nav.photo">摄影</a></li>
+      <li><a href="https://sport.qijunhao.com" data-i18n="nav.sports">运动</a></li>
+      <li><a href="https://resume.qijunhao.com" data-i18n="nav.resume">履历</a></li>
+      <li><a href="https://contact.qijunhao.com" data-i18n="nav.contact">联系</a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="lang-toggle" id="langToggle">
+        <span class="lang-item active" data-lang="zh">简</span>
+        <span class="lang-item" data-lang="en">EN</span>
+        <span class="lang-item" data-lang="hant">繁</span>
+      </div>
+      <button class="theme-toggle" id="themeToggle" aria-label="切换主题"></button>
+      <button class="nav-toggle" id="navToggle" aria-label="菜单"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</nav>
+
 <div class="container">
   <span class="icon">📷</span>
   <h1>摄影</h1>
@@ -96,5 +57,7 @@ p {
   <p>这个页面还在施工中<br>摄影作品会放在这里</p>
   <a href="https://qijunhao.com" class="back-link">回到首页</a>
 </div>
+
+<script src="common.js"></script>
 </body>
 </html>
