@@ -2,78 +2,8 @@
    COMMON JS — 戚俊皓 | Personal Website v3
    ===================================================== */
 
-// ─── I18N Translations (nav links only) ─────────────
-const NAV_I18N = {
-  zh: {
-    'nav.home': '首页',
-    'nav.music': '音乐',
-    'nav.travel': '旅行',
-    'nav.photo': '摄影',
-    'nav.sports': '运动',
-    'nav.resume': '履历',
-    'nav.contact': '联系',
-  },
-  en: {
-    'nav.home': 'Home',
-    'nav.music': 'Music',
-    'nav.travel': 'Travel',
-    'nav.photo': 'Photography',
-    'nav.sports': 'Sports',
-    'nav.resume': 'Resume',
-    'nav.contact': 'Contact',
-  },
-  hant: {
-    'nav.home': '首頁',
-    'nav.music': '音樂',
-    'nav.travel': '旅行',
-    'nav.photo': '攝影',
-    'nav.sports': '運動',
-    'nav.resume': '履歷',
-    'nav.contact': '聯繫',
-  }
-};
-
-let currentLang = localStorage.getItem('lang') || 'zh';
-
-function applyLang() {
-  const lang = currentLang;
-  document.documentElement.lang = lang === 'hant' ? 'zh-TW' : (lang === 'en' ? 'en' : 'zh-CN');
-  // Translate data-i18n elements
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const key = el.dataset.i18n;
-    const text = NAV_I18N[lang]?.[key];
-    if (text) {
-      if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
-        el.placeholder = text;
-      } else {
-        el.textContent = text;
-      }
-    }
-  });
-  // Update lang toggle active state
-  document.querySelectorAll('.lang-item').forEach(item => {
-    item.classList.toggle('active', item.dataset.lang === lang);
-  });
-}
-
-function initLangToggle() {
-  const toggle = document.getElementById('langToggle');
-  if (!toggle) return;
-  toggle.querySelectorAll('.lang-item').forEach(item => {
-    item.addEventListener('click', () => {
-      currentLang = item.dataset.lang;
-      localStorage.setItem('lang', currentLang);
-      applyLang();
-    });
-  });
-}
-
 document.addEventListener('DOMContentLoaded', function() {
   'use strict';
-
-  // ─── Apply saved language ──────────────────────────
-  applyLang();
-  initLangToggle();
 
   // ─── Theme Toggle ────────────────────────────────
   const themeToggle = document.getElementById('themeToggle');
@@ -101,6 +31,51 @@ document.addEventListener('DOMContentLoaded', function() {
       ? '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>'
       : '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>';
   }
+
+  // ─── i18n System ─────────────────────────────────
+  const TRANSLATIONS = {
+    'nav.home':    { zh: '首页',   en: 'Home',    hant: '首頁' },
+    'nav.music':   { zh: '音乐',   en: 'Music',   hant: '音樂' },
+    'nav.travel':  { zh: '旅行',   en: 'Travel',  hant: '旅行' },
+    'nav.photo':   { zh: '摄影',   en: 'Photo',   hant: '攝影' },
+    'nav.sports':  { zh: '运动',   en: 'Sports',  hant: '運動' },
+    'nav.resume':  { zh: '履历',   en: 'Resume',  hant: '履歷' },
+    'nav.contact': { zh: '联系',   en: 'Contact', hant: '聯繫' }
+  };
+
+  let currentLang = localStorage.getItem('lang') || 'zh';
+
+  function applyLanguage(lang) {
+    currentLang = lang;
+    localStorage.setItem('lang', lang);
+    document.documentElement.setAttribute('data-lang', lang);
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (TRANSLATIONS[key] && TRANSLATIONS[key][lang]) {
+        el.textContent = TRANSLATIONS[key][lang];
+      }
+    });
+    // Update lang-toggle active state
+    document.querySelectorAll('.lang-item').forEach(item => {
+      item.classList.toggle('active', item.dataset.lang === lang);
+    });
+  }
+
+  // Lang toggle
+  const langToggle = document.getElementById('langToggle');
+  if (langToggle) {
+    langToggle.addEventListener('click', function(e) {
+      const item = e.target.closest('.lang-item');
+      if (!item) return;
+      const lang = item.dataset.lang;
+      if (lang && lang !== currentLang) {
+        applyLanguage(lang);
+      }
+    });
+  }
+
+  // Apply initial language
+  applyLanguage(currentLang);
 
   // ─── Mobile Nav Toggle ───────────────────────────
   const navToggle = document.getElementById('navToggle');
