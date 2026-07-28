@@ -57,24 +57,15 @@
   <nav class="navbar" id="navbar">
     <div class="nav-inner">
       <a href="https://qijunhao.com" class="nav-logo">QI JUNHAO<span class="dot">.</span></a>
-      <ul class="nav-links" id="navLinks">
-        <li><a href="https://qijunhao.com" data-i18n="nav.home">首页</a></li>
-        <li><a href="https://music.qijunhao.com" data-i18n="nav.music">音乐</a></li>
-        <li><a href="https://travel.qijunhao.com" data-i18n="nav.travel">旅行</a></li>
-        <li><a href="https://photography.qijunhao.com" class="active" data-i18n="nav.photo">摄影</a></li>
-        <li><a href="https://sport.qijunhao.com" data-i18n="nav.sports">运动</a></li>
-        <li><a href="https://resume.qijunhao.com" data-i18n="nav.resume">履历</a></li>
-        <li><a href="https://contact.qijunhao.com" data-i18n="nav.contact">联系</a></li>
-      </ul>
+      <div class="nav-gooey" data-full></div>
       <div class="nav-right">
         <div class="lang-toggle" id="langToggle">
           <span class="lang-item active" data-lang="zh">简</span>
           <span class="lang-item" data-lang="hant">繁</span>
           <span class="lang-item" data-lang="en">EN</span>
         </div>
-        <button class="theme-toggle" id="themeToggle" aria-label="切换主题"></button>
-        <button class="nav-toggle" id="navToggle" aria-label="菜单">
-          <span></span><span></span><span></span>
+        <button class="theme-toggle" id="themeToggle" aria-label="切换主题">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
         </button>
       </div>
     </div>
@@ -112,5 +103,36 @@
   <button class="back-to-top" id="backToTop" aria-label="回到顶部">↑</button>
 
   <script src="common.js"></script>
+  <script src="gooey-nav.js"></script>
+  <!-- SVG filter for gooey blob effect -->
+  <svg xmlns="http://www.w3.org/2000/svg" version="1.1" style="position:absolute;width:0;height:0;">
+    <defs>
+      <filter id="goo">
+        <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur"/>
+        <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -8" result="goo"/>
+        <feBlend in="SourceGraphic" in2="goo"/>
+      </filter>
+    </defs>
+  </svg>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var navContainer = document.querySelector('.nav-gooey');
+      if (navContainer) {
+        new GooeyNav(navContainer, {
+          items: [
+            { href: 'https://qijunhao.com', label: '首页' },
+            { href: 'https://music.qijunhao.com', label: '音乐' },
+            { href: 'https://travel.qijunhao.com', label: '旅行' },
+            { href: 'https://photography.qijunhao.com', label: '摄影' },
+            { href: 'https://sport.qijunhao.com', label: '运动' },
+            { href: 'https://resume.qijunhao.com', label: '履历' },
+            { href: 'https://contact.qijunhao.com', label: '联系' }
+          ],
+          initialActiveIndex: 3,
+          colors: [1, 2, 3, 4, 1, 2, 3]
+        });
+      }
+    });
+  </script>
 </body>
 </html>
